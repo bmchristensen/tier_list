@@ -1,24 +1,17 @@
-# README
+# Tier List App (Name: TBD)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A tool to rank League of Legends Champions by how well they perform in the current metagame.
 
-Things you may want to cover:
+Dependencies:
+*
+*
+*
 
-* Ruby version
+How to run the program:
+* In the project directory, enter the `rails s` command.
+* To see/use the app, open your browser and navigate to `localhost:3000`.
 
-* System dependencies
+How to run the test suite:
+* `rspec` command
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+(c) Johnny Phelan, Mike Wittenburg
