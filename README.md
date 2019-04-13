@@ -3,9 +3,12 @@
 A tool to rank League of Legends Champions by how well they perform in the current metagame.
 
 Dependencies:
-* Will
-* Add
-* Soon
+* Rails 5.2.3
+* RSpec 3.7
+```
+bundle install
+rails generate rspec:install
+```
 
 How to run the program:
 * In the project directory, enter `rails s`.
