@@ -9,9 +9,4 @@ class List
   def empty?
     @size.equal? 0
   end
-
-  def printSize
-    @size = @champions.size
-    @size
-  end
 end
