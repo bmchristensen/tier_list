@@ -12,4 +12,15 @@ RSpec.describe List do
     list.champions << champion
     expect(list.champions.size).to eq(1)
   end
+
+  it "knows the size of a list" do
+  	list.champions << champion
+  	expect(list.printSize).to eq(list.champions.size)
+  end
+
+  it "can access a champion from a list" do
+  	list.champions << champion
+  	expect(list.champions[0]).to equal(champion)
+  end
+
 end

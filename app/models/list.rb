@@ -6,7 +6,18 @@ class List
     @size = 0
   end
 
+
   def empty?
     @size.equal? 0
   end
+
+  def printSize
+  	@size = @champions.size
+  	@size
+  end
+
+
+
+
+
 end
