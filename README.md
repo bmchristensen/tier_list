@@ -4,6 +4,10 @@ A tool to rank League of Legends Champions by how well they perform in the curre
 
 Dependencies:
 * Rails 5.2.3
+With Homebrew:
+```
+brew install rails
+```
 * RSpec 3.7
 ```
 bundle install
