@@ -10,14 +10,14 @@ RSpec.describe List do
 
   it "can add a champion to a list" do
     list.champions << champion
-    expect(list.champions.size).to eq(1)
+    expect(list.size()).to eq(1)
   end
 
   it "knows the size of a list" do
     list.champions << champion
     list.champions << champion
     list.champions << champion
-    expect(list.champions.size).to eq(3)
+    expect(list.size()).to eq(3)
   end
 
   it "can access a champion from a list" do

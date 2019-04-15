@@ -7,6 +7,10 @@ class List
   end
 
   def empty?
-    @size.equal? 0
+    @champions.size.equal? 0
+  end
+
+  def size
+  	@size = champions.size
   end
 end
