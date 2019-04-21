@@ -23,6 +23,11 @@ How to run the app:
 * Pull down origin develop branch
 `git pull origin develop`
 * Install dependencies
+* Migrate the DB
+```
+rails db:create:all
+rails db:migrate
+```
 * In the project directory, enter `rails s`.
 * To see/use the app, open your browser and navigate to `localhost:3000`.
 
