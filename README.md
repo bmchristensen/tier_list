@@ -1,4 +1,4 @@
-# Mid Lane Tier List App (Name: TBD)
+#Tier List App (Name: TBD)
 
 A tool to rank League of Legends Champions by how well they perform in the current metagame.
 
