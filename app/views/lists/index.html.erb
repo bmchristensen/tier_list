@@ -1,0 +1,17 @@
+<h1>All Lists</h1>
+<table>
+  <thead>
+    <tr>
+      <td>List Name</td>
+      <td>Size of List</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lists.each do |list| %>
+      <tr class="list-row" id="<%= dom_id(list) %>">
+        <td class="name"><%= list.name %></td>
+        <td class="size"><%= list.size %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
