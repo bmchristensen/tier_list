@@ -14,11 +14,50 @@ RSpec.describe "adding a champion", type: :system do
       "#list_#{@list.id} .size", text: "2")
   end
 
-  it "does not allow a user to create a project without a name" do
+  it "does not allow a user to create a list without a name" do
     visit new_list_path
     fill_in "Name", with: ""
     fill_in "Champions", with: "Zed:S\nKatarina:C"
     click_on("Create List")
     expect(page).to have_selector(".new_list")
   end
+
+  it "allows a user to create multiple lists of champions, and navigate to each one" do
+    visit new_list_path
+    fill_in "Name", with: "Mid Lane"
+    fill_in "Champions", with: "Zed:S\nKatarina:C"
+    click_on("Create List")
+    visit lists_path
+    @list_a = List.find_by(name: "Mid Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_a.id} .name", text: "Mid Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_a.id} .size", text: "2")
+    visit new_list_path
+    fill_in "Name", with: "Top Lane"
+    fill_in "Champions", with: "Riven:A\nTeemo:B"
+    click_on("Create List")
+    visit lists_path
+    @list_b = List.find_by(name: "Top Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_b.id} .name", text: "Top Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_b.id} .size", text: "2")
+    visit lists_path
+    @list_a = List.find_by(name: "Mid Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_a.id} .name", text: "Mid Lane")
+    expect(page).to have_selector(
+      "#list_#{@list_a.id} .size", text: "2")
+
+  end
+
+  it "does not allow a user to create a list with a single champion string, and reverts user to original new list page" do
+    visit new_list_path
+    fill_in "Name", with: "Mid Lane"
+    fill_in "Champions", with: "Zed"
+    click_on("Create List")
+    expect(page).to have_selector(".new_list")
+  end
+
 end

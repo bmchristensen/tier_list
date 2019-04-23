@@ -26,7 +26,7 @@ class CreatesList
   def convert_string_to_champion
     champ_string.split("\n").map do |one_champ|
       champ_name, tier = one_champ.split(":")
-      Champion.new(name: champ_name, tier: tier, size: 1)
+      Champion.new(name: champ_name, tier: tier)
     end
   end
 end
