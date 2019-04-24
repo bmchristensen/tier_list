@@ -20,6 +20,7 @@ RSpec.describe "adding a champion", type: :system do
     fill_in "Champions", with: "Zed:S\nKatarina:C"
     click_on("Create List")
     expect(page).to have_selector(".new_list")
+    expect(page).to have_text("Name can't be blank")
   end
 
   it "allows a user to create multiple lists of champions, and navigate to each one" do
@@ -58,6 +59,7 @@ RSpec.describe "adding a champion", type: :system do
     fill_in "Champions", with: "Zed"
     click_on("Create List")
     expect(page).to have_selector(".new_list")
+    expect(page).to have_text("Champions is invalid")
   end
 
 end
