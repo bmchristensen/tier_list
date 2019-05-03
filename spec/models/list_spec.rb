@@ -24,4 +24,19 @@ RSpec.describe List do
     list.champions << champion
     expect(list.champions[0]).to equal(champion)
   end
+
+  it "can calculate a champion score" do
+    champion.name = "Katarina"
+    champion.tier = "C"
+    expect(champion.calculate_champion_score).to eq(1)
+    champion.tier = "S"
+    expect(champion.calculate_champion_score).to eq(4)
+  end
+
+  it "will default to champion score 0 with tier input other than C, B, A, or S" do
+    champion.name = "Katarina"
+    champion.tier = "Zed"
+    expect(champion.calculate_champion_score).to eq(0)
+  end
 end
+
