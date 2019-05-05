@@ -19,7 +19,11 @@ class List < ApplicationRecord
   end
 
   def battle(opposing_team)
-    self.calculate_list_score < opposing_team.calculate_list_score ?
-      opposing_team : self
+    if self.calculate_list_score == opposing_team.calculate_list_score
+      return nil
+    else
+      self.calculate_list_score < opposing_team.calculate_list_score ?
+        opposing_team : self
+    end
   end
 end
