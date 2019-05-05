@@ -19,4 +19,8 @@ class ListsController < ApplicationController
       render :new
     end
   end
+
+  def show
+    @list = List.find(params[:id])
+  end
 end
