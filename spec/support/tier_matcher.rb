@@ -1,4 +1,4 @@
-RSpec::Matchers.define :be_of_champion_score do |expected|
+RSpec::Matchers.define :have_score do |expected|
   match do |actual|
     actual.calculate_score_from_tier() == expected
   end

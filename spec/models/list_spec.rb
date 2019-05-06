@@ -32,8 +32,8 @@ RSpec.describe List do
     list.champions << Champion.new(name: "Katarina", tier: "C")
     list.champions << Champion.new(name: "Draven", tier: "A")
 
-    expect(list).to be_of_score(7)
-    expect(list).not_to be_of_score(4)
+    expect(list).to have_total_score(7)
+    expect(list).not_to have_total_score(4)
   end
 
   it "can calculate which list has a better score" do
@@ -45,15 +45,15 @@ RSpec.describe List do
     list2.champions << Champion.new(name: "Zed", tier: "S")
     list2.champions << Champion.new(name: "Lucian", tier: "B")
 
-    expect(list).to be_of_score(7)
-    expect(list2).to be_of_score(10)
+    expect(list).to have_total_score(7)
+    expect(list2).to have_total_score(10)
     expect(list.battle(list2)).to eq(list2)
 
     list3.champions << Champion.new(name: "Lee Sin", tier: "S")
     list3.champions << Champion.new(name: "Ahri", tier: "S")
     list3.champions << Champion.new(name: "Jinx", tier:"S")
 
-    expect(list3).to be_of_score(12)
+    expect(list3).to have_total_score(12)
     expect(list3.battle(list2)).to eq(list3)
   end
 

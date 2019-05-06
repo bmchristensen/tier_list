@@ -1,4 +1,4 @@
-RSpec::Matchers.define :be_of_score do |expected|
+RSpec::Matchers.define :have_total_score do |expected|
   match do |actual|
     actual.calculate_list_score() == expected
   end
