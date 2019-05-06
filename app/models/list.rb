@@ -7,15 +7,23 @@ class List < ApplicationRecord
   end
 
   def size
-  	size = champions.size
+    size = champions.size
   end
 
-  def delete_list
-  	self.delete
+  def calculate_list_score
+    total_score = 0
+    champions.each do |champion|
+      total_score += champion.calculate_score_from_tier()
+    end
+    return total_score
   end
 
-  def get_list_score
-    
-    return true
+  def battle(opposing_team)
+    if self.calculate_list_score == opposing_team.calculate_list_score
+      return nil
+    else
+      self.calculate_list_score < opposing_team.calculate_list_score ?
+        opposing_team : self
+    end
   end
 end
