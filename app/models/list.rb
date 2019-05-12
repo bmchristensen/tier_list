@@ -11,11 +11,7 @@ class List < ApplicationRecord
   end
 
   def calculate_list_score
-    total_score = 0
-    champions.each do |champion|
-      total_score += champion.calculate_score_from_tier()
-    end
-    return total_score
+    champions.sum(&:calculate_score_from_tier)
   end
 
   def battle(opposing_team)

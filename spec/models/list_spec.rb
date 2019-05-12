@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe List do
-  let(:list) { List.new }
-  let(:list2) { List.new }
-  let(:list3) { List.new }
+  let(:list) { FactoryBot.build_stubbed(:list) }
+  let(:list2) { FactoryBot.build_stubbed(:list) }
+  let(:list3) { FactoryBot.build_stubbed(:list) }
   let(:champion) { Champion.new }
 
   it "creates an empty list upon instantiation" do

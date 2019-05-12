@@ -4,7 +4,7 @@ RSpec::Matchers.define :have_total_score do |expected|
   end
 
   description do
-    "have champion with a tier of #{expected} points"
+    "have list totaling #{expected} points"
   end
 
   failure_message do |actual|
