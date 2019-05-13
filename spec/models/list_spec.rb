@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe List do
+  let(:empty_team) { FactoryBot.build_stubbed(:list) }
   let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
   let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
   let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
@@ -18,6 +19,10 @@ RSpec.describe List do
   let(:lee_sin) { FactoryBot.build_stubbed(:champion, :lee_sin) }
   let(:ahri) { FactoryBot.build_stubbed(:champion, :ahri) }
   let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
+
+  it "creates an empty list upon instantiation" do
+    expect(empty_team.empty?).to be_truthy
+  end
 
   it "can add a champion to a list" do
     expect(team_of_one.size()).to eq(1)
