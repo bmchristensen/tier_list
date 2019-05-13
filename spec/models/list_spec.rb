@@ -1,72 +1,51 @@
 require "rails_helper"
 
 RSpec.describe List do
-  let(:list) { FactoryBot.build_stubbed(:list) }
-  let(:list2) { FactoryBot.build_stubbed(:list) }
-  let(:list3) { FactoryBot.build_stubbed(:list) }
-  let(:champion) { Champion.new }
-
-  it "creates an empty list upon instantiation" do
-    expect(list.empty?).to be_truthy
-  end
+  let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
+  let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
+  let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
+  let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
+  let(:team3) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx]) }
+  let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
+  let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
+  let(:champion) { FactoryBot.build_stubbed(:champion) }
+  let(:jax) { FactoryBot.build_stubbed(:champion, :jax) }
+  let(:katarina) { FactoryBot.build_stubbed(:champion, :katarina) }
+  let(:draven) { FactoryBot.build_stubbed(:champion, :draven) }
+  let(:hecarim) { FactoryBot.build_stubbed(:champion, :hecarim) }
+  let(:zed) { FactoryBot.build_stubbed(:champion, :zed) }
+  let(:lucian) { FactoryBot.build_stubbed(:champion, :lucian) }
+  let(:lee_sin) { FactoryBot.build_stubbed(:champion, :lee_sin) }
+  let(:ahri) { FactoryBot.build_stubbed(:champion, :ahri) }
+  let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
 
   it "can add a champion to a list" do
-    list.champions << champion
-    expect(list.size()).to eq(1)
+    expect(team_of_one.size()).to eq(1)
   end
 
   it "knows the size of a list" do
-    list.champions << champion
-    list.champions << champion
-    list.champions << champion
-    expect(list.size()).to eq(3)
+    expect(team_of_three.size()).to eq(3)
   end
 
   it "can access a champion from a list" do
-    list.champions << champion
-    expect(list.champions[0]).to equal(champion)
+    expect(team_of_one.champions[0]).to equal(champion)
   end
 
   it "can calculate the total score for a list" do
-    list.champions << Champion.new(name: "Jax", tier: "A")
-    list.champions << Champion.new(name: "Katarina", tier: "C")
-    list.champions << Champion.new(name: "Draven", tier: "A")
-
-    expect(list).to have_total_score(7)
-    expect(list).not_to have_total_score(4)
+    expect(team1).to have_total_score(7)
+    expect(team1).not_to have_total_score(4)
   end
 
   it "can calculate which list has a better score" do
-    list.champions << Champion.new(name: "Jax", tier: "A")
-    list.champions << Champion.new(name: "Katarina", tier: "C")
-    list.champions << Champion.new(name: "Draven", tier: "A")
-
-    list2.champions << Champion.new(name: "Hecarim", tier: "S")
-    list2.champions << Champion.new(name: "Zed", tier: "S")
-    list2.champions << Champion.new(name: "Lucian", tier: "B")
-
-    expect(list).to have_total_score(7)
-    expect(list2).to have_total_score(10)
-    expect(list.battle(list2)).to eq(list2)
-
-    list3.champions << Champion.new(name: "Lee Sin", tier: "S")
-    list3.champions << Champion.new(name: "Ahri", tier: "S")
-    list3.champions << Champion.new(name: "Jinx", tier:"S")
-
-    expect(list3).to have_total_score(12)
-    expect(list3.battle(list2)).to eq(list3)
+    expect(team1).to have_total_score(7)
+    expect(team2).to have_total_score(10)
+    expect(team1.battle(team2)).to eq(team2)
+    expect(team3).to have_total_score(12)
+    expect(team3.battle(team2)).to eq(team3)
   end
 
   it "does not return a winner if two lists have equal scores" do
-    list.champions << Champion.new(name: "Jax", tier: "A")
-    list.champions << Champion.new(name: "Ahri", tier: "S")
-    list.champions << Champion.new(name: "Draven", tier: "A")
-
-    list2.champions << Champion.new(name: "Hecarim", tier: "S")
-    list2.champions << Champion.new(name: "Zed", tier: "S")
-    list2.champions << Champion.new(name: "Lucian", tier: "B")
-
-    expect(list.battle(list2)).to eq(nil);
+    expect(first_10pt_team.battle(second_10pt_team)).to eq(nil);
   end
 end
 
