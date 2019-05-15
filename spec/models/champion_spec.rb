@@ -36,4 +36,26 @@ RSpec.describe Champion, type: :model do
     expect(jax).to have_score(3)
     expect(zed).to have_score(4)
   end
+
+  describe "fakes/mocks" do
+    let(:big_dependency) { BigDependency.new }
+    let(:stub_champ) { Champion.new }
+    let(:mock_champ) { Champion.new }
+
+    it "returns the correct value from its perform method" do
+      allow(stub_champ).to receive(:perform).and_return(42)
+      expect(stub_champ.perform(big_dependency)).to eq(42)
+    end
+
+    it "returns the correct value from its perform method 2" do
+      expect(mock_champ).to receive(:perform).and_return(42)
+      expect(mock_champ.perform(big_dependency)).to eq(42)
+    end
+
+    it "returns the correct value from its perform method 3" do
+      instance_twin = instance_double(Champion)
+      expect(instance_twin).to receive(:perform).and_return(42)
+      expect(instance_twin.perform(big_dependency)).to eq(42)
+    end
+  end
 end

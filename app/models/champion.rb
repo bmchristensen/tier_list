@@ -14,4 +14,9 @@ class Champion < ApplicationRecord
     score = score_array().index(self.tier) + 1
     return score
   end
+
+  def perform(big_dependency)
+    big_dependency.execute
+    return 42
+  end
 end
