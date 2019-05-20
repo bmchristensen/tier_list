@@ -22,4 +22,9 @@ class List < ApplicationRecord
         opposing_team : self
     end
   end
+
+  def perform(big_dependency)
+    big_dependency.execute
+    return 42
+  end
 end

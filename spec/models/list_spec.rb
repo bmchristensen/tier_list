@@ -52,5 +52,27 @@ RSpec.describe List do
   it "does not return a winner if two lists have equal scores" do
     expect(first_10pt_team.battle(second_10pt_team)).to eq(nil);
   end
+
+  describe "fakes and mocks: " do
+    let(:big_dependency) {BigDependency.new}
+    let(:list_stub) {List.new}
+    let(:list_mock) {List.new}
+
+    it "returns the correct value from its perform method using an instance double" do
+      instance_twin = instance_double(List)
+      expect(instance_twin).to receive(:perform).and_return(42)
+      expect(instance_twin.perform(big_dependency)).to eq(42)
+    end
+
+    it "returns the correct value from its perform method using a stub" do
+      allow(list_stub).to receive(:perform).and_return(42)
+      expect(list_stub.perform(big_dependency)).to eq(42)
+    end
+
+    it "returns the correct value from its perform method using a mock" do
+      allow(list_stub).to receive(:perform).and_return(42)
+      expect(list_stub.perform(big_dependency)).to eq(42)
+    end    
+  end
 end
 
