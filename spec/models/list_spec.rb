@@ -1,12 +1,18 @@
 require "rails_helper"
 
 RSpec.describe List do
-  let(:team) { FactoryBot.build_stubbed(:list) }
+  let(:team1) { build_stubbed(:list) }
   # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
   # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
   # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  # let(:team) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
+  let(:team2) { build_stubbed(:list, champions: [
+                                :lee_sin,
+                                :ahri,
+                                :jinx,
+                                :zed,
+                                :jax
+                                ]) }
   # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
   # let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
@@ -22,23 +28,23 @@ RSpec.describe List do
   # let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
 
   it "cannot create an empty team" do
-    expect(team).to be_invalid
+    expect(team1).to be_invalid
   end
 
   it "can add a champion to a list" do
-    expect(team.size).to eq(0)
-    team.champions << FactoryBot.build(:champion, :zed)
-    expect(team.size).to eq(1)
+    expect(team1.size).to eq(0)
+    team1.champions << build(:champion, :zed)
+    expect(team1.size).to eq(1)
   end
 
   it "can access a champion from a list" do
-    team.champions << FactoryBot.build(:champion, :zed)
-    expect(team.champions[0].name).to eq("Zed")
+    team1.champions << build(:champion, :zed)
+    expect(team1.champions[0].name).to eq("Zed")
   end
 
   it "can calculate the total score for a list" do
-    expect(team).to have_total_score(7)
-    expect(team).not_to have_total_score(4)
+    expect(team1).to have_total_score(0)
+    # expect(team2).to have_total_score(19)
   end
 
   it "can calculate which list has a better score" do
