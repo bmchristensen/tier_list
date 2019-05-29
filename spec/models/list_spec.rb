@@ -2,31 +2,33 @@ require "rails_helper"
 
 RSpec.describe List do
   let(:empty_team) { FactoryBot.build_stubbed(:list) }
-  let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
-  let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
-  let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
-  let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  let(:team3) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx]) }
-  let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
-  let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
-  let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  let(:champion) { FactoryBot.build_stubbed(:champion) }
-  let(:jax) { FactoryBot.build_stubbed(:champion, :jax) }
-  let(:katarina) { FactoryBot.build_stubbed(:champion, :katarina) }
-  let(:draven) { FactoryBot.build_stubbed(:champion, :draven) }
-  let(:hecarim) { FactoryBot.build_stubbed(:champion, :hecarim) }
-  let(:zed) { FactoryBot.build_stubbed(:champion, :zed) }
-  let(:lucian) { FactoryBot.build_stubbed(:champion, :lucian) }
-  let(:lee_sin) { FactoryBot.build_stubbed(:champion, :lee_sin) }
-  let(:ahri) { FactoryBot.build_stubbed(:champion, :ahri) }
-  let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
+  # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
+  # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
+  # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
+  # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
+  let(:team) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
+  # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
+  # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
+  # let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
+  # let(:champion) { FactoryBot.build_stubbed(:champion) }
+  # let(:jax) { FactoryBot.build_stubbed(:champion, :jax) }
+  # let(:katarina) { FactoryBot.build_stubbed(:champion, :katarina) }
+  # let(:draven) { FactoryBot.build_stubbed(:champion, :draven) }
+  # let(:hecarim) { FactoryBot.build_stubbed(:champion, :hecarim) }
+  # let(:zed) { FactoryBot.build_stubbed(:champion, :zed) }
+  # let(:lucian) { FactoryBot.build_stubbed(:champion, :lucian) }
+  # let(:lee_sin) { FactoryBot.build_stubbed(:champion, :lee_sin) }
+  # let(:ahri) { FactoryBot.build_stubbed(:champion, :ahri) }
+  # let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
 
-  it "creates an empty list upon instantiation" do
-    expect(empty_team.empty?).to be_truthy
+  it "cannot create an empty team" do
+    expect(empty_team).to be_invalid
   end
 
   it "can add a champion to a list" do
-    expect(team_of_one.size()).to eq(1)
+    expect(empty_team.size).to eq(0)
+    empty_team.champions << FactoryBot.build(:champion, :zed)
+    expect(empty_team.size).to eq(1)
   end
 
   it "knows the size of a list" do
@@ -55,12 +57,11 @@ RSpec.describe List do
   end
 
   it "is not valid if size is not five" do
-    expect(team3.valid_size?).to be_falsey
+    expect(team3.valid?).to be_truthy
+    team3.champions = []
+    expect(team3.valid?).to be_falsey
   end
 
-  it "is valid if size is five" do
-    expect(team4.valid_size?).to be_truthy
-  end
 
   describe "fakes and mocks: " do
     let(:big_dependency) {BigDependency.new}
