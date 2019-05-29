@@ -2,19 +2,21 @@ require "rails_helper"
 
 RSpec.describe List do
   let(:team1) { build_stubbed(:list, name: "Empty Team", champions: []) }
+  let(:team2) { build_stubbed(:list,
+                                name: "Real Team",
+                                champions:
+                                  [
+                                    build(:champion, :lee_sin),
+                                    build(:champion, :ahri),
+                                    build(:champion, :jinx),
+                                    build(:champion, :zed),
+                                    build(:champion, :jax)
+                                  ]
+                                  ) }
   # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
   # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
   # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  let(:team2) { build_stubbed(:list,
-                                name: "Real Team",
-                                champions: [
-                                build(:champion, :lee_sin),
-                                build(:champion, :ahri),
-                                build(:champion, :jinx),
-                                build(:champion, :zed),
-                                build(:champion, :jax)
-                                ]) }
   # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
   # let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
@@ -54,7 +56,15 @@ RSpec.describe List do
   end
 
   it "does not return a winner if two lists have equal scores" do
-    expect(first_10pt_team.battle(second_10pt_team)).to eq(nil);
+    team1.champions <<
+                [
+                  build(:champion, :hecarim),
+                  build(:champion, :draven),
+                  build(:champion, :zed),
+                  build(:champion, :ahri),
+                  build(:champion, :lee_sin)
+                ]
+    expect(team1.battle(team2)).to eq(nil);
   end
 
   it "is not valid if size is not five" do
