@@ -7,11 +7,11 @@ RSpec.describe List do
   # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
   let(:team2) { build_stubbed(:list, champions: [
-                                :lee_sin,
-                                :ahri,
-                                :jinx,
-                                :zed,
-                                :jax
+                                build(:champion, :lee_sin),
+                                build(:champion, :ahri),
+                                build(:champion, :jinx),
+                                build(:champion, :zed),
+                                build(:champion, :jax)
                                 ]) }
   # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
@@ -44,15 +44,11 @@ RSpec.describe List do
 
   it "can calculate the total score for a list" do
     expect(team1).to have_total_score(0)
-    # expect(team2).to have_total_score(19)
+    expect(team2).to have_total_score(19)
   end
 
   it "can calculate which list has a better score" do
-    expect(team1).to have_total_score(7)
-    expect(team2).to have_total_score(10)
     expect(team1.battle(team2)).to eq(team2)
-    expect(team3).to have_total_score(12)
-    expect(team3.battle(team2)).to eq(team3)
   end
 
   it "does not return a winner if two lists have equal scores" do
