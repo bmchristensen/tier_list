@@ -54,6 +54,10 @@ RSpec.describe List do
     expect(first_10pt_team.battle(second_10pt_team)).to eq(nil);
   end
 
+  it "is not valid if size is not five" do
+    expect(team3.valid_size?).to be_falsey
+  end
+
   it "is valid if size is five" do
     expect(team4.valid_size?).to be_truthy
   end
