@@ -10,6 +10,10 @@ class List < ApplicationRecord
     size = champions.size
   end
 
+  def valid_size?
+    size.equal? 5
+  end
+
   def calculate_list_score
     champions.sum(&:calculate_score_from_tier)
   end

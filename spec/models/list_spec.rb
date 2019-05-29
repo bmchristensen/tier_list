@@ -7,6 +7,7 @@ RSpec.describe List do
   let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
   let(:team3) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx]) }
+  let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
   let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
   let(:champion) { FactoryBot.build_stubbed(:champion) }
@@ -53,6 +54,10 @@ RSpec.describe List do
     expect(first_10pt_team.battle(second_10pt_team)).to eq(nil);
   end
 
+  it "is valid if size is five" do
+    expect(team4.valid_size?).to be_truthy
+  end
+
   describe "fakes and mocks: " do
     let(:big_dependency) {BigDependency.new}
     let(:list_stub) {List.new}
@@ -72,7 +77,6 @@ RSpec.describe List do
     it "returns the correct value from its perform method using a mock" do
       allow(list_stub).to receive(:perform).and_return(42)
       expect(list_stub.perform(big_dependency)).to eq(42)
-    end    
+    end
   end
 end
-
