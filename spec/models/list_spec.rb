@@ -31,10 +31,6 @@ RSpec.describe List do
     expect(empty_team.size).to eq(1)
   end
 
-  it "knows the size of a list" do
-    expect(team_of_three.size()).to eq(3)
-  end
-
   it "can access a champion from a list" do
     expect(team_of_one.champions[0]).to equal(champion)
   end
