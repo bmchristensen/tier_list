@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe List do
-  let(:team1) { build_stubbed(:list) }
+  let(:team1) { build_stubbed(:list, name: "Empty Team", champions: []) }
   # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
   # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
   # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  let(:team2) { build_stubbed(:list, champions: [
+  let(:team2) { build_stubbed(:list,
+                                name: "Real Team",
+                                champions: [
                                 build(:champion, :lee_sin),
                                 build(:champion, :ahri),
                                 build(:champion, :jinx),
@@ -56,9 +58,9 @@ RSpec.describe List do
   end
 
   it "is not valid if size is not five" do
-    expect(team3.valid?).to be_truthy
-    team3.champions = []
-    expect(team3.valid?).to be_falsey
+    expect(team2.valid?).to be_truthy
+    team2.champions = []
+    expect(team2.valid?).to be_falsey
   end
 
 
