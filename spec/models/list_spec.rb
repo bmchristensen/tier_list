@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe List do
-  let(:empty_team) { FactoryBot.build_stubbed(:list) }
+  let(:team) { FactoryBot.build_stubbed(:list) }
   # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
   # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
   # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
   # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  let(:team) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
+  # let(:team) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
   # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
   # let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
@@ -22,22 +22,23 @@ RSpec.describe List do
   # let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
 
   it "cannot create an empty team" do
-    expect(empty_team).to be_invalid
+    expect(team).to be_invalid
   end
 
   it "can add a champion to a list" do
-    expect(empty_team.size).to eq(0)
-    empty_team.champions << FactoryBot.build(:champion, :zed)
-    expect(empty_team.size).to eq(1)
+    expect(team.size).to eq(0)
+    team.champions << FactoryBot.build(:champion, :zed)
+    expect(team.size).to eq(1)
   end
 
   it "can access a champion from a list" do
-    expect(team_of_one.champions[0]).to equal(champion)
+    team.champions << FactoryBot.build(:champion, :zed)
+    expect(team.champions[0].name).to eq("Zed")
   end
 
   it "can calculate the total score for a list" do
-    expect(team1).to have_total_score(7)
-    expect(team1).not_to have_total_score(4)
+    expect(team).to have_total_score(7)
+    expect(team).not_to have_total_score(4)
   end
 
   it "can calculate which list has a better score" do
