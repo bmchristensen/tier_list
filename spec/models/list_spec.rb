@@ -13,23 +13,6 @@ RSpec.describe List do
                                     build(:champion, :jax)
                                   ]
                                   ) }
-  # let(:team_of_one) { FactoryBot.build_stubbed(:list, champions: [champion]) }
-  # let(:team_of_three) { FactoryBot.build_stubbed(:list, champions: [champion, champion, champion]) }
-  # let(:team1) { FactoryBot.build_stubbed(:list, champions: [jax, katarina, draven]) }
-  # let(:team2) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  # let(:team4) { FactoryBot.build_stubbed(:list, champions: [lee_sin, ahri, jinx, zed, jax]) }
-  # let(:first_10pt_team) { FactoryBot.build_stubbed(:list, champions: [jax, ahri, draven]) }
-  # let(:second_10pt_team) { FactoryBot.build_stubbed(:list, champions: [hecarim, zed, lucian]) }
-  # let(:champion) { FactoryBot.build_stubbed(:champion) }
-  # let(:jax) { FactoryBot.build_stubbed(:champion, :jax) }
-  # let(:katarina) { FactoryBot.build_stubbed(:champion, :katarina) }
-  # let(:draven) { FactoryBot.build_stubbed(:champion, :draven) }
-  # let(:hecarim) { FactoryBot.build_stubbed(:champion, :hecarim) }
-  # let(:zed) { FactoryBot.build_stubbed(:champion, :zed) }
-  # let(:lucian) { FactoryBot.build_stubbed(:champion, :lucian) }
-  # let(:lee_sin) { FactoryBot.build_stubbed(:champion, :lee_sin) }
-  # let(:ahri) { FactoryBot.build_stubbed(:champion, :ahri) }
-  # let(:jinx) { FactoryBot.build_stubbed(:champion, :jinx) }
 
   it "cannot create an empty team" do
     expect(team1).to be_invalid
