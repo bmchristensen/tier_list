@@ -8,7 +8,7 @@ class List < ApplicationRecord
   end
 
   def size
-    size = champions.size
+    champions.size
   end
 
   def valid_size?
@@ -20,16 +20,16 @@ class List < ApplicationRecord
   end
 
   def battle(opposing_team)
-    if self.calculate_list_score == opposing_team.calculate_list_score
-      return nil
+    if calculate_list_score == opposing_team.calculate_list_score
+      nil
     else
-      self.calculate_list_score < opposing_team.calculate_list_score ?
+      calculate_list_score < opposing_team.calculate_list_score ?
         opposing_team : self
     end
   end
 
   def perform(big_dependency)
     big_dependency.execute
-    return 42
+    42
   end
 end
