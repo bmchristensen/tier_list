@@ -62,9 +62,9 @@ RSpec.describe List do
   end
 
   it 'is not valid if size is not five' do
-    expect(valid_team.valid?).to be_truthy
-    # valid_team.champions = []
-    expect(empty_team.valid?).to be_falsey
+    expect(team_for_replace_method.valid?).to be_truthy
+    team_for_replace_method.champions = []
+    expect(team_for_replace_method.valid?).to be_falsey
   end
 
   it 'can replace a champion in its list' do
