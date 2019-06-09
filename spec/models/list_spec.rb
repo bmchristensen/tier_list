@@ -1,58 +1,79 @@
 require 'rails_helper'
 
 RSpec.describe List do
-  let(:team1) { build_stubbed(:list, name: 'Empty Team', champions: []) }
-  let(:team2) do
+  let(:empty_team) { build_stubbed(:list, name: 'Empty Team', champions: []) }
+  let(:valid_team) do
     build_stubbed(
       :list,
+      name: 'Valid Team',
+      champions: [build_stubbed(:champion, :lee_sin),
+                  build_stubbed(:champion, :ahri),
+                  build_stubbed(:champion, :jinx),
+                  build_stubbed(:champion, :zed),
+                  build_stubbed(:champion, :jax)]
+    )
+  end
+
+  let(:team_for_replace_method) do
+    create(
+      :list,
       name: 'Real Team',
-      champions: [build(:champion, :lee_sin),
-                  build(:champion, :ahri),
-                  build(:champion, :jinx),
-                  build(:champion, :zed),
-                  build(:champion, :jax)]
+      champions: [create(:champion, :lee_sin),
+                  create(:champion, :ahri),
+                  create(:champion, :jinx),
+                  create(:champion, :zed),
+                  create(:champion, :jax)]
     )
   end
 
   it 'cannot create an empty team' do
-    expect(team1).to be_invalid
+    expect(empty_team).to be_invalid
   end
 
   it 'can add a champion to a list' do
-    expect(team1.size).to eq(0)
-    team1.champions << build(:champion, :zed)
-    expect(team1.size).to eq(1)
+    expect(empty_team.size).to eq(0)
+    empty_team.champions << build(:champion, :zed)
+    expect(empty_team.size).to eq(1)
   end
 
   it 'can access a champion from a list' do
-    team1.champions << build(:champion, :zed)
-    expect(team1.champions[0].name).to eq('Zed')
+    empty_team.champions << build(:champion, :zed)
+    expect(empty_team.champions[0].name).to eq('Zed')
   end
 
   it 'can calculate the total score for a list' do
-    expect(team1).to have_total_score(0)
-    expect(team2).to have_total_score(19)
+    expect(empty_team).to have_total_score(0)
+    expect(valid_team).to have_total_score(19)
   end
 
   it 'can calculate which list has a better score' do
-    expect(team1.battle(team2)).to eq(team2)
+    expect(empty_team.battle(valid_team)).to eq(valid_team)
   end
 
   it 'does not return a winner if two lists have equal scores' do
-    team1.champions << [
+    empty_team.champions << [
       build(:champion, :hecarim),
       build(:champion, :draven),
       build(:champion, :zed),
       build(:champion, :ahri),
       build(:champion, :lee_sin)
     ]
-    expect(team1.battle(team2)).to eq(nil)
+    expect(empty_team.battle(valid_team)).to eq(nil)
   end
 
   it 'is not valid if size is not five' do
-    expect(team2.valid?).to be_truthy
-    team2.champions = []
-    expect(team2.valid?).to be_falsey
+    expect(team_for_replace_method.valid?).to be_truthy
+    team_for_replace_method.champions = []
+    expect(team_for_replace_method.valid?).to be_falsey
+  end
+
+  it 'can replace a champion in its list' do
+    existing_hero = build(:champion, :zed)
+    new_hero = build(:champion, :hecarim)
+    team_for_replace_method.replace_champion(existing_hero, new_hero)
+    team_for_replace_method.reload
+    expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
+    expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
   end
 
   describe 'fakes and mocks:' do

@@ -30,4 +30,9 @@ class List < ApplicationRecord
     big_dependency.execute
     42
   end
+
+  def replace_champion(existing_champ, new_champ)
+    existing_champ.destroy
+    self.champions << new_champ
+  end
 end
