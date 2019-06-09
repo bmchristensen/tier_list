@@ -71,8 +71,9 @@ RSpec.describe List do
     existing_hero = build(:champion, :zed)
     new_hero = build(:champion, :hecarim)
     team_for_replace_method.replace_champion(existing_hero, new_hero)
-    # valid_team.reload
+    team_for_replace_method.reload
     expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
+    expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
   end
 
   describe 'fakes and mocks:' do

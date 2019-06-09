@@ -1,5 +1,5 @@
 class Champion < ApplicationRecord
-  belongs_to :list
+  belongs_to :list, optional: true
   validates :name, presence: true
   validates :tier, presence: true
 
