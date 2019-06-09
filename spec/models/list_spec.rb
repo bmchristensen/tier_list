@@ -73,7 +73,6 @@ RSpec.describe List do
     new_hero = create(:champion, :hecarim)
     team_for_replace_method.replace_champion(existing_hero, new_hero)
     team_for_replace_method.reload
-    byebug
     expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
     expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
   end
