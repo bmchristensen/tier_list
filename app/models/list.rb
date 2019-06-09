@@ -37,4 +37,8 @@ class List < ApplicationRecord
     existing_champ.destroy
     self.champions << new_champ
   end
+
+  def remove_all
+    self.champions.each { |champ| self.champions.delete(champ) }
+  end
 end
