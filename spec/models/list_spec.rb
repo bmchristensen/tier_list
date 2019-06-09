@@ -13,7 +13,17 @@ RSpec.describe List do
                   build_stubbed(:champion, :jax)]
     )
   end
-
+  let(:dup_team) do
+    build_stubbed(
+      :list,
+      name: 'Dup Team',
+      champions: [create(:champion, :lee_sin),
+                  create(:champion, :lee_sin),
+                  create(:champion, :zed),
+                  create(:champion, :zed),
+                  create(:champion, :zed)]
+    )
+  end
   let(:team_for_replace_method) do
     create(
       :list,
@@ -33,6 +43,10 @@ RSpec.describe List do
 
   it 'cannot create an empty team' do
     expect(empty_team).to be_invalid
+  end
+
+  it 'cannot create a team with duplicates' do
+    expect(dup_team).to be_invalid
   end
 
   it 'can add a champion to a list' do

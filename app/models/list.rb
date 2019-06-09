@@ -1,8 +1,7 @@
 class List < ApplicationRecord
   has_many :champions, dependent: :destroy
   validates :name, presence: true
-  validates_with ListValidator, fields: [:size]
-    # validates_uniqueness_of :name, scope :list_id
+  validates_with ListValidator, fields: [:size, :champions]
 
   def empty?
     champions.size.equal? 0
