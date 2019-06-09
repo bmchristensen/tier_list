@@ -64,14 +64,16 @@ RSpec.describe List do
   it 'is not valid if size is not five' do
     expect(team_for_replace_method.valid?).to be_truthy
     team_for_replace_method.remove_all
+    expect(team_for_replace_method.size).to be(0)
     expect(team_for_replace_method.valid?).to be_falsey
   end
 
   it 'can replace a champion in its list' do
-    existing_hero = build(:champion, :zed)
-    new_hero = build(:champion, :hecarim)
+    existing_hero = create(:champion, :zed)
+    new_hero = create(:champion, :hecarim)
     team_for_replace_method.replace_champion(existing_hero, new_hero)
     team_for_replace_method.reload
+    byebug
     expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
     expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
   end
