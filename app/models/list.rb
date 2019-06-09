@@ -20,12 +20,10 @@ class List < ApplicationRecord
   end
 
   def battle(opposing_team)
-    if calculate_list_score == opposing_team.calculate_list_score
-      nil
-    else
-      calculate_list_score < opposing_team.calculate_list_score ?
-        opposing_team : self
-    end
+    return calculate_list_score < opposing_team.calculate_list_score ? opposing_team : self unless
+      calculate_list_score == opposing_team.calculate_list_score do
+        nil
+      end
   end
 
   def perform(big_dependency)
