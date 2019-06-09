@@ -26,6 +26,11 @@ RSpec.describe List do
     )
   end
 
+  it 'can create valid teams' do
+    expect(valid_team).to be_valid
+    expect(team_for_replace_method).to be_valid
+  end
+
   it 'cannot create an empty team' do
     expect(empty_team).to be_invalid
   end
@@ -74,7 +79,6 @@ RSpec.describe List do
   end
 
   it 'is not valid if size is not five' do
-    expect(team_for_replace_method).to be_valid
     team_for_replace_method.remove_all
     expect(team_for_replace_method.size).to be(0)
     expect(team_for_replace_method.valid?).to be_falsey
@@ -87,6 +91,11 @@ RSpec.describe List do
     team_for_replace_method.reload
     expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
     expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
+  end
+
+  it 'can delete a list of champions' do
+    team_for_replace_method.remove_list
+    expect(team_for_replace_method.valid?).to be_falsey
   end
 
   describe 'fakes and mocks:' do

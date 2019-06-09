@@ -34,15 +34,24 @@ class List < ApplicationRecord
 
   def replace_champion(existing_champ, new_champ)
     Champion.where(name: existing_champ.name,
+<<<<<<< HEAD
                   list_id: self.champions[0].list_id).destroy_all
     add_champion(new_champ)
   end
 
   def add_champion(champ)
     champions << champ unless champions.include?(champ)
+=======
+                   list_id: champions[0].list_id).destroy_all
+    champions << new_champ
+>>>>>>> e2d59e1a30957b107ed1af03b5d562a2b0bf9c03
   end
 
   def remove_all
-    self.champions.destroy_all
+    champions.destroy_all
+  end
+
+  def remove_list
+    destroy
   end
 end
