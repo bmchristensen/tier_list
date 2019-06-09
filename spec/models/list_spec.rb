@@ -61,8 +61,20 @@ RSpec.describe List do
     expect(empty_team.battle(valid_team)).to eq(nil)
   end
 
+  it 'cannot add duplicate champions' do
+    draven = build(:champion, :draven)
+    zed = build(:champion, :zed)
+    lee_sin = build(:champion, :lee_sin)
+    empty_team.add_champion(draven)
+    empty_team.add_champion(draven)
+    empty_team.add_champion(zed)
+    empty_team.add_champion(zed)
+    empty_team.add_champion(lee_sin)
+    expect(empty_team).to be_invalid
+  end
+
   it 'is not valid if size is not five' do
-    expect(team_for_replace_method.valid?).to be_truthy
+    expect(team_for_replace_method).to be_valid
     team_for_replace_method.remove_all
     expect(team_for_replace_method.size).to be(0)
     expect(team_for_replace_method.valid?).to be_falsey
