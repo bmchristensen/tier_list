@@ -32,8 +32,6 @@ class List < ApplicationRecord
   end
 
   def replace_champion(existing_champ, new_champ)
-    # self.champions.delete(existing_champ)
-    # existing_champ.destroy
     Champion.where(name: existing_champ.name,
                   list_id: self.champions[0].list_id).destroy_all
     self.champions << new_champ
