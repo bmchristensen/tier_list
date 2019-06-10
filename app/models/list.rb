@@ -1,7 +1,7 @@
 class List < ApplicationRecord
   has_many :champions, dependent: :destroy
   validates :name, presence: true
-  validates_with ListValidator, fields: [:size]
+  validates_with ListValidator, fields: [:size, :champions]
 
   def empty?
     champions.size.equal? 0
@@ -32,9 +32,17 @@ class List < ApplicationRecord
   end
 
   def replace_champion(existing_champ, new_champ)
-    Champion.where(name: existing_champ.name,
-                   list_id: champions[0].list_id).destroy_all
-    champions << new_champ
+    remove_champion(existing_champ)
+    add_champion(new_champ)
+  end
+
+  def remove_champion(champ)
+    Champion.where(name: champ.name,
+                  list_id: self.champions[0].list_id).destroy_all
+  end
+
+  def add_champion(champ)
+    champions << champ unless champions.include?(champ)
   end
 
   def remove_all

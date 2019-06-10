@@ -6,11 +6,23 @@ RSpec.describe List do
     build_stubbed(
       :list,
       name: 'Valid Team',
-      champions: [build_stubbed(:champion, :lee_sin),
-                  build_stubbed(:champion, :ahri),
-                  build_stubbed(:champion, :jinx),
-                  build_stubbed(:champion, :zed),
+      champions: [build_stubbed(:champion, :katarina),
+                  build_stubbed(:champion, :lucian),
+                  build_stubbed(:champion, :hecarim),
+                  build_stubbed(:champion, :soraka),
                   build_stubbed(:champion, :jax)]
+    )
+  end
+
+  let(:dup_team) do
+    build_stubbed(
+      :list,
+      name: 'Dup Team',
+      champions: [create(:champion, :lee_sin),
+                  create(:champion, :lee_sin),
+                  create(:champion, :zed),
+                  create(:champion, :zed),
+                  create(:champion, :zed)]
     )
   end
 
@@ -18,21 +30,25 @@ RSpec.describe List do
     create(
       :list,
       name: 'Real Team',
-      champions: [create(:champion, :lee_sin),
-                  create(:champion, :ahri),
-                  create(:champion, :jinx),
-                  create(:champion, :zed),
+      champions: [create(:champion, :katarina),
+                  create(:champion, :lucian),
+                  create(:champion, :hecarim),
+                  create(:champion, :soraka),
                   create(:champion, :jax)]
     )
   end
 
   it 'can create valid teams' do
-    expect(valid_team.valid?).to be_truthy
-    expect(team_for_replace_method.valid?).to be_truthy
+    expect(valid_team).to be_valid
+    expect(team_for_replace_method).to be_valid
   end
 
   it 'cannot create an empty team' do
     expect(empty_team).to be_invalid
+  end
+
+  it 'cannot create a team with duplicates' do
+    expect(dup_team).to be_invalid
   end
 
   it 'can add a champion to a list' do
@@ -48,7 +64,7 @@ RSpec.describe List do
 
   it 'can calculate the total score for a list' do
     expect(empty_team).to have_total_score(0)
-    expect(valid_team).to have_total_score(19)
+    expect(valid_team).to have_total_score(13)
   end
 
   it 'can calculate which list has a better score' do
@@ -57,13 +73,25 @@ RSpec.describe List do
 
   it 'does not return a winner if two lists have equal scores' do
     empty_team.champions << [
+      build(:champion, :katarina),
+      build(:champion, :lucian),
       build(:champion, :hecarim),
-      build(:champion, :draven),
-      build(:champion, :zed),
-      build(:champion, :ahri),
-      build(:champion, :lee_sin)
+      build(:champion, :soraka),
+      build(:champion, :jax)
     ]
     expect(empty_team.battle(valid_team)).to eq(nil)
+  end
+
+  it 'cannot add duplicate champions' do
+    draven = build(:champion, :draven)
+    zed = build(:champion, :zed)
+    lee_sin = build(:champion, :lee_sin)
+    empty_team.add_champion(draven)
+    empty_team.add_champion(draven)
+    empty_team.add_champion(zed)
+    empty_team.add_champion(zed)
+    empty_team.add_champion(lee_sin)
+    expect(empty_team).to be_invalid
   end
 
   it 'is not valid if size is not five' do

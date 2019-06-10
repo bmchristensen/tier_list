@@ -2,6 +2,7 @@ class Champion < ApplicationRecord
   belongs_to :list, optional: true
   validates :name, presence: true
   validates :tier, presence: true
+  validates :role, presence: true
 
   def score_array
     return ["C", "B", "A", "S"]
