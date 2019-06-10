@@ -66,5 +66,11 @@ FactoryBot.define do
       tier { "S" }
       role { "Jungle" }
     end
+
+    trait :soraka do
+      name { "Soraka" }
+      tier { "A" }
+      role { "Support" }
+    end
   end
 end

@@ -6,10 +6,10 @@ RSpec.describe List do
     build_stubbed(
       :list,
       name: 'Valid Team',
-      champions: [build_stubbed(:champion, :lee_sin),
-                  build_stubbed(:champion, :ahri),
-                  build_stubbed(:champion, :jinx),
-                  build_stubbed(:champion, :zed),
+      champions: [build_stubbed(:champion, :katarina),
+                  build_stubbed(:champion, :lucian),
+                  build_stubbed(:champion, :hecarim),
+                  build_stubbed(:champion, :soraka),
                   build_stubbed(:champion, :jax)]
     )
   end
@@ -30,10 +30,10 @@ RSpec.describe List do
     create(
       :list,
       name: 'Real Team',
-      champions: [create(:champion, :lee_sin),
-                  create(:champion, :ahri),
-                  create(:champion, :jinx),
-                  create(:champion, :zed),
+      champions: [create(:champion, :katarina),
+                  create(:champion, :lucian),
+                  create(:champion, :hecarim),
+                  create(:champion, :soraka),
                   create(:champion, :jax)]
     )
   end
@@ -64,7 +64,7 @@ RSpec.describe List do
 
   it 'can calculate the total score for a list' do
     expect(empty_team).to have_total_score(0)
-    expect(valid_team).to have_total_score(19)
+    expect(valid_team).to have_total_score(13)
   end
 
   it 'can calculate which list has a better score' do
@@ -73,11 +73,11 @@ RSpec.describe List do
 
   it 'does not return a winner if two lists have equal scores' do
     empty_team.champions << [
+      build(:champion, :katarina),
+      build(:champion, :lucian),
       build(:champion, :hecarim),
-      build(:champion, :draven),
-      build(:champion, :zed),
-      build(:champion, :ahri),
-      build(:champion, :lee_sin)
+      build(:champion, :soraka),
+      build(:champion, :jax)
     ]
     expect(empty_team.battle(valid_team)).to eq(nil)
   end

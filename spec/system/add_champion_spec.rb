@@ -4,11 +4,11 @@ RSpec.describe 'adding a champion', type: :system do
   it 'allows a user to create a valid list of champions' do
     visit new_list_path
     fill_in 'Name', with: 'Mid Lane'
-    fill_in 'Champions', with: "Zed:S:Mid
-                                Katarina:C:Mid
-                                Jinx:A:ADC
-                                Lee_Sin:B:Jungle
-                                Ahri:S:Mid"
+    fill_in 'Champions', with: "Katarina:C:Mid
+                                Lucian:B:ADC
+                                Hecarim:S:Jungle
+                                Soraka:A:Support
+                                Jax:A:Top"
     click_on('Create List')
     visit lists_path
     @list = List.find_by(name: 'Mid Lane')
@@ -28,11 +28,11 @@ RSpec.describe 'adding a champion', type: :system do
   it 'allows a user to create multiple champion lists and navigate to them' do
     visit new_list_path
     fill_in 'Name', with: 'Mid Lane'
-    fill_in 'Champions', with: "Zed:S:Mid
-                                Katarina:C:Mid
-                                Jinx:A:ADC
-                                Lee_Sin:B:Jungle
-                                Ahri:S:Mid"
+    fill_in 'Champions', with: "Katarina:C:Mid
+                                Lucian:B:ADC
+                                Hecarim:S:Jungle
+                                Soraka:A:Support
+                                Jax:A:Top"
     click_on('Create List')
     visit lists_path
     @list_a = List.find_by(name: 'Mid Lane')
@@ -45,11 +45,11 @@ RSpec.describe 'adding a champion', type: :system do
 
     visit new_list_path
     fill_in 'Name', with: 'Top Lane'
-    fill_in 'Champions', with: "Riven:A:Top
-                                Teemo:B:Top
-                                Jinx:A:ADC
-                                Lee_Sin:B:Jungle
-                                Ahri:S:Mid"
+    fill_in 'Champions', with: "Katarina:C:Mid
+                                Lucian:B:ADC
+                                Hecarim:S:Jungle
+                                Soraka:A:Support
+                                Jax:A:Top"
     click_on('Create List')
 
     visit lists_path

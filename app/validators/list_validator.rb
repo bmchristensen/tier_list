@@ -1,13 +1,26 @@
 class ListValidator < ActiveModel::Validator
   def validate(record)
-    uniq_attrs = record.champions.map do |x|
+    uniq_names = record.champions.map do |champ|
       [
-        x.name.downcase
+        champ.name.downcase
       ]
     end
 
-    if uniq_attrs.detect{ |x| uniq_attrs.count(x) > 1} != nil
-      record.errors.add(:champions, "cannot have duplicates")
+    uniq_roles = []
+    record.champions.map do |champ|
+      if champ.role == nil
+        record.errors.add(:champions, "does not have a role")
+      else
+        uniq_roles << champ.role.downcase
+      end
+    end
+
+    if uniq_roles.detect{ |x| uniq_roles.count(x) > 1} != nil
+      record.errors.add(:champions, "cannot have duplicate roles")
+    end
+
+    if uniq_names.detect{ |x| uniq_names.count(x) > 1} != nil
+      record.errors.add(:champions, "cannot have duplicate champions")
     end
 
     if record.size != 5

@@ -32,7 +32,11 @@ RSpec.describe CreatesList do
     end
 
     describe 'attaches champions to the list' do
-      let(:champ_string) { "Zed:S:Mid\nKatarina:C:Mid\nJinx:A:ADC\nLee_Sin:B:Jungle\nAhri:S:Mid" }
+      let(:champ_string) { "Katarina:C:Mid
+                            Lucian:B:ADC
+                            Hecarim:S:Jungle
+                            Soraka:A:Support
+                            Jax:A:Top" }
       before(:example) { creator.create }
       specify { expect(creator.list.champions.size).to eq(5) }
       specify { expect(creator.list).not_to be_a_new_record }
