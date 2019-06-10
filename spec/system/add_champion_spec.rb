@@ -4,20 +4,22 @@ RSpec.describe 'adding a champion', type: :system do
   it 'allows a user to create a valid list of champions' do
     visit new_list_path
     fill_in 'Name', with: 'Mid Lane'
-    fill_in 'Champions', with: "Zed:S\nKatarina:C\nJinx:A\nLee_Sin:B\nAhri:S"
+    fill_in 'Champions', with: "Zed:S:Mid
+                                Katarina:C:Mid
+                                Jinx:A:ADC
+                                Lee_Sin:B:Jungle
+                                Ahri:S:Mid"
     click_on('Create List')
     visit lists_path
     @list = List.find_by(name: 'Mid Lane')
-    expect(page).to have_selector(
-      "#list_#{@list.id} .name", text: 'Mid Lane')
-    expect(page).to have_selector(
-      "#list_#{@list.id} .size", text: '5')
+    expect(page).to have_selector("#list_#{@list.id} .name", text: 'Mid Lane')
+    expect(page).to have_selector("#list_#{@list.id} .size", text: '5')
   end
 
   it 'does not allow a user to create a list without a name' do
     visit new_list_path
     fill_in 'Name', with: ''
-    fill_in 'Champions', with: "Zed:S\nKatarina:C"
+    fill_in 'Champions', with: "Zed:S:Mid\nKatarina:C:Mid"
     click_on('Create List')
     expect(page).to have_selector('.new_list')
     expect(page).to have_text("Name can't be blank")
@@ -26,9 +28,12 @@ RSpec.describe 'adding a champion', type: :system do
   it 'allows a user to create multiple champion lists and navigate to them' do
     visit new_list_path
     fill_in 'Name', with: 'Mid Lane'
-    fill_in 'Champions', with: "Zed:S\nKatarina:C\nJinx:A\nLee_Sin:B\nAhri:S"
+    fill_in 'Champions', with: "Zed:S:Mid
+                                Katarina:C:Mid
+                                Jinx:A:ADC
+                                Lee_Sin:B:Jungle
+                                Ahri:S:Mid"
     click_on('Create List')
-
     visit lists_path
     @list_a = List.find_by(name: 'Mid Lane')
     expect(page).to have_selector(
@@ -40,7 +45,11 @@ RSpec.describe 'adding a champion', type: :system do
 
     visit new_list_path
     fill_in 'Name', with: 'Top Lane'
-    fill_in 'Champions', with: "Riven:A\nTeemo:B\nJinx:A\nLee_Sin:B\nAhre:S"
+    fill_in 'Champions', with: "Riven:A:Top
+                                Teemo:B:Top
+                                Jinx:A:ADC
+                                Lee_Sin:B:Jungle
+                                Ahri:S:Mid"
     click_on('Create List')
 
     visit lists_path

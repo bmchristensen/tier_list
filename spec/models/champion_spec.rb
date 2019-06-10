@@ -17,6 +17,10 @@ RSpec.describe Champion, type: :model do
     expect(champion).to respond_to(:tier)
   end
 
+  it "has a role attribute" do
+    expect(champion).to respond_to(:role)
+  end
+
   it "can calculate champion score based on tier" do
     expect(jax).to have_score(3)
     expect(zed).to have_score(4)

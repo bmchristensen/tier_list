@@ -13,6 +13,7 @@ RSpec.describe List do
                   build_stubbed(:champion, :jax)]
     )
   end
+
   let(:dup_team) do
     build_stubbed(
       :list,
@@ -24,6 +25,7 @@ RSpec.describe List do
                   create(:champion, :zed)]
     )
   end
+
   let(:team_for_replace_method) do
     create(
       :list,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_21_173153) do
+ActiveRecord::Schema.define(version: 2019_06_09_235600) do
 
   create_table "champions", force: :cascade do |t|
     t.integer "list_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_04_21_173153) do
     t.integer "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
     t.index ["list_id"], name: "index_champions_on_list_id"
   end
 
