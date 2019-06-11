@@ -25,12 +25,16 @@ RSpec.describe 'deleting a list', type: :system do
     click_on('Create List')
     visit lists_path
     @second_list = List.find_by(name: 'Test Second')
-    expect(page).to have_selector("#list_#{@second_list.id} .name", text: 'Test Second')
+    expect(page).to have_selector(
+      "#list_#{@second_list.id} .name", text: 'Test Second'
+    )
     expect(page).to have_selector("#list_#{@second_list.id} .size", text: '5')
 
     click_on('Destroy', match: :first)
     expect(page).to have_no_content('Mid Lane')
-    expect(page).to have_selector("#list_#{@second_list.id} .name", text: 'Test Second')
+    expect(page).to have_selector(
+      "#list_#{@second_list.id} .name", text: 'Test Second'
+    )
     expect(page).to have_selector("#list_#{@second_list.id} .size", text: '5')
   end
 end
