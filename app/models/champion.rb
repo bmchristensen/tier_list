@@ -1,23 +1,22 @@
 class Champion < ApplicationRecord
   belongs_to :list, optional: true
-  validates :name, presence: true
-  validates :tier, presence: true
-  validates :role, presence: true
+  validates :name, :tier, :role, presence: true
 
   def score_array
-    return ["C", "B", "A", "S"]
+    %w[C B A S]
   end
 
   def calculate_score_from_tier
-    if !(score_array().include? self.tier) or (self.name == "") or (self.name == nil)
+    if !(score_array.include? tier) || name == '' || name == nil?
       return nil
     end
-    score = score_array().index(self.tier) + 1
-    return score
+
+    score = score_array.index(tier) + 1
+    score
   end
 
   def perform(big_dependency)
     big_dependency.execute
-    return 42
+    42
   end
 end
