@@ -17,7 +17,13 @@ RSpec.describe CreatesList do
     describe 'with a chamption and tier and role' do
       let(:champ_string) { 'Zed:S:Mid' }
       specify { expect(champions.size).to eq(1) }
-      specify { expect(champions.first).to have_attributes(name: 'Zed', tier: 'S', role: 'Mid') }
+      specify do
+        expect(champions.first).to have_attributes(
+          name: 'Zed',
+          tier: 'S',
+          role: 'Mid'
+        )
+      end
     end
 
     describe 'with multiple champions' do
@@ -32,11 +38,14 @@ RSpec.describe CreatesList do
     end
 
     describe 'attaches champions to the list' do
-      let(:champ_string) { "Katarina:C:Mid
-                            Lucian:B:ADC
-                            Hecarim:S:Jungle
-                            Soraka:A:Support
-                            Jax:A:Top" }
+      let(:champ_string) do
+        "Katarina:C:Mid
+         Lucian:B:ADC
+         Hecarim:S:Jungle
+         Soraka:A:Support
+         Jax:A:Top"
+      end
+
       before(:example) { creator.create }
       specify { expect(creator.list.champions.size).to eq(5) }
       specify { expect(creator.list).not_to be_a_new_record }

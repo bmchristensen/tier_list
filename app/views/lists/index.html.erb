@@ -11,6 +11,9 @@
       <tr class="list-row" id="<%= dom_id(list) %>">
         <td class="name"><%= list.name %></td>
         <td class="size"><%= list.size %></td>
+        <td>
+          <%=button_to('Destroy', list_path(:id => list.id), method: "delete")%>
+        </td>
       </tr>
   <% end %>
   </tbody>

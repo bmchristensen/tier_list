@@ -23,4 +23,9 @@ class ListsController < ApplicationController
   def show
     @list = List.find(params[:id])
   end
+
+  def destroy
+    List.find(params[:id]).destroy
+    redirect_to lists_path
+  end
 end

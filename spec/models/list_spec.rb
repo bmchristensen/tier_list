@@ -14,10 +14,10 @@ RSpec.describe List do
     )
   end
 
-  let(:dup_team) do
+  let(:duplicate_team) do
     build_stubbed(
       :list,
-      name: 'Dup Team',
+      name: 'Duplicate Team',
       champions: [create(:champion, :lee_sin),
                   create(:champion, :lee_sin),
                   create(:champion, :zed),
@@ -26,7 +26,7 @@ RSpec.describe List do
     )
   end
 
-  let(:team_for_replace_method) do
+  let(:db_backed_team) do
     create(
       :list,
       name: 'Real Team',
@@ -40,7 +40,7 @@ RSpec.describe List do
 
   it 'can create valid teams' do
     expect(valid_team).to be_valid
-    expect(team_for_replace_method).to be_valid
+    expect(db_backed_team).to be_valid
   end
 
   it 'cannot create an empty team' do
@@ -48,7 +48,7 @@ RSpec.describe List do
   end
 
   it 'cannot create a team with duplicates' do
-    expect(dup_team).to be_invalid
+    expect(duplicate_team).to be_invalid
   end
 
   it 'can add a champion to a list' do
@@ -95,23 +95,23 @@ RSpec.describe List do
   end
 
   it 'is not valid if size is not five' do
-    team_for_replace_method.remove_all
-    expect(team_for_replace_method.size).to be(0)
-    expect(team_for_replace_method.valid?).to be_falsey
+    db_backed_team.remove_all
+    expect(db_backed_team.size).to be(0)
+    expect(db_backed_team.valid?).to be_falsey
   end
 
   it 'can replace a champion in its list' do
     existing_hero = create(:champion, :zed)
     new_hero = create(:champion, :hecarim)
-    team_for_replace_method.replace_champion(existing_hero, new_hero)
-    team_for_replace_method.reload
-    expect(team_for_replace_method.champions.include?(new_hero)).to be_truthy
-    expect(team_for_replace_method.champions.include?(existing_hero)).to be_falsey
+    db_backed_team.replace_champion(existing_hero, new_hero)
+    db_backed_team.reload
+    expect(db_backed_team.champions.include?(new_hero)).to be_truthy
+    expect(db_backed_team.champions.include?(existing_hero)).to be_falsey
   end
 
   it 'can delete a list of champions' do
-    team_for_replace_method.remove_list
-    expect(team_for_replace_method.valid?).to be_falsey
+    db_backed_team.remove_list
+    expect(db_backed_team.valid?).to be_falsey
   end
 
   describe 'fakes and mocks:' do
