@@ -12,9 +12,7 @@
         <td class="name"><%= list.name %></td>
         <td class="size"><%= list.size %></td>
         <td>
-          <%= button_to('Destroy', list_path(:id => list.id),
-                    method: "delete")
-          %>
+          <%=button_to('Destroy', list_path(:id => list.id), method: "delete")%>
         </td>
       </tr>
   <% end %>
