@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :list do
-    name { "Tier List" }
+    name { 'Tier List' }
   end
 end
