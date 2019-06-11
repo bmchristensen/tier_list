@@ -34,7 +34,7 @@ RSpec.describe Champion, type: :model do
     expect(invalid_name).to have_score(nil)
   end
 
-  it 'can calculate champion score based on all tiers C, B, A, and S (scores 1-4 respectively)' do
+  it 'can calculate champion score based on all tiers' do
     expect(katarina).to have_score(1)
     expect(lucian).to have_score(2)
     expect(jax).to have_score(3)
